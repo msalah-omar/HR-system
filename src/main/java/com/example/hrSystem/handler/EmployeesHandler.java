@@ -75,8 +75,8 @@ public class EmployeesHandler
         mapper.updateEntityFromDto(employeesDto,employees);
         employees.setId(id);
         employeesService.save(employees);
-        EmployeesDto dto= mapper.toDto(employees);
-        return ResponseEntity.ok(dto);
+
+        return ResponseEntity.ok(mapper.toDto(employees));
     }
 
     public ResponseEntity<?> delete(Integer id)
