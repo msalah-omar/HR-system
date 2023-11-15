@@ -1,26 +1,39 @@
 package com.example.hrSystem.mapper;
 
-
-import com.example.hrSystem.Dto.DepartmentDto;
 import com.example.hrSystem.Dto.DocumentDto;
-import com.example.hrSystem.entity.Department;
+import com.example.hrSystem.Service.DocumentTypeService;
 import com.example.hrSystem.entity.Document;
+import com.example.hrSystem.utils.HibernateUtils;
 import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Base64;
 import java.util.List;
-
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class DocumentMapper {
 
-//   @Mappings({@Mapping(source = "content", target = "content", ignore = true) })
-    public abstract DocumentDto toDto(Document entity);
 
-    public abstract List<DocumentDto> toDto(List<Document> entityList);
+    @Autowired
+    private DocumentTypeService documentTypeService;
+
+
+    @Autowired
+    private DocumentTypeMapper documentTypeMapper;
+
+
+    @Mappings({
+            @Mapping(source = "documentType", target = "documentType", ignore = true),
+    })
+    public abstract DocumentDto toDto(Document document);
+
+    public abstract List<DocumentDto> toDto(List<Document> documentList);
 
     @AfterMapping
-    public void toDtoAfterMapping(Document entity, @MappingTarget DocumentDto dto) {
-      //  dto.setContent(Base64.getEncoder().withoutPadding().encodeToString(entity.getContent()));
+    public void toDtoAfterMapping(Document document, @MappingTarget DocumentDto dto) {
+
+        if (HibernateUtils.isConvertible(document.getDocumentType())) {
+            dto.setDocumentType(documentTypeMapper.toDto(document.getDocumentType()));
+        }
+
     }
 
     @InheritInverseConfiguration
@@ -30,12 +43,13 @@ public abstract class DocumentMapper {
 
 
     @AfterMapping
-    public void toEntityAfterMapping(DocumentDto dto, @MappingTarget Document entity) {
-        //entity.setContent(Base64.getDecoder().decode(dto.getContent()));
+    public void toEntityAfterMapping(DocumentDto dto, @MappingTarget Document document) {
+
+        if (dto.getDocumentType() != null) {
+            document.setDocumentType(documentTypeService.getReferenceById(dto.getDocumentType().getId()));
+        }
     }
 
     @InheritInverseConfiguration
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    public abstract Document updateEntityFromDto (DocumentDto documentDto, @MappingTarget Document document);
-
+    public abstract Document updateEntityFromDto(DocumentDto documentDto, @MappingTarget Document document);
 }

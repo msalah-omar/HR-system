@@ -34,6 +34,9 @@ public class DocumentTypeService
         return documentTypeRepository.findById(id);
     }
 
+    public DocumentType getReferenceById(Integer id) {
+        return documentTypeRepository.getById(id);
+    }
 
     public DocumentType update(DocumentType documentType)
     {

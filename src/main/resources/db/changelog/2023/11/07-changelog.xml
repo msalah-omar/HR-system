@@ -70,7 +70,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="4-m" author="mohamed salah">
+    <changeSet id="-7-l" author="mohamed salah">
         <createTable tableName="document">
             <column autoIncrement="true" name="id" type="INT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_document"/>
@@ -80,10 +80,14 @@
             <column name="modified_by" type="VARCHAR(255)"/>
             <column name="created_date" type="DATETIME"/>
             <column name="modified_date" type="DATETIME"/>
-            <column name="document_type" type="VARCHAR(255)"/>
-            <column name="content" type="BLOB"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="path" type="VARCHAR(255)"/>
+            <column name="media_type" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="document_type_id" type="INT"/>
         </createTable>
     </changeSet>
+    
 
 
     <changeSet id="5-s" author="mohamed salah">

@@ -53,6 +53,7 @@ public class DocumentTypeHandler
 
     public ResponseEntity<?> getById(Integer id)
     {
+
         Optional<DocumentType> documentType = documentTypeService.getById(id);
         return ResponseEntity.ok(documentType);
     }

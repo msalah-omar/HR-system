@@ -7,14 +7,12 @@ import lombok.Data;
 @Data
 public class DocumentDto extends RestDto
 {
-    private DocumentType documentType;
+    private String name;
 
-    private String documentName;
+    private String path;
 
+    private String mediaType;
 
-    private String contentType;
+    private DocumentTypeDto documentType;
 
-    private Long size;
-
-    private byte[] content;
 }
