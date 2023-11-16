@@ -19,6 +19,7 @@
         </createTable>
     </changeSet>
 
+
     <changeSet id="2" author="mohamed salah">
         <createTable tableName="document_type">
             <column autoIncrement="true" name="id" type="INT">
@@ -31,6 +32,9 @@
             <column name="enabled" type="boolean"/>
         </createTable>
     </changeSet>
+
+
+
 
     <changeSet  id="3-vvv" author="mohamed salah" >
         <insert tableName="document_type">
@@ -86,8 +90,15 @@
             <column name="description" type="VARCHAR(255)"/>
             <column name="document_type_id" type="INT"/>
         </createTable>
+
     </changeSet>
-    
+
+    <changeSet id="2-5" author="mohamed salah">
+        <addForeignKeyConstraint baseColumnNames="document_type_id" baseTableName="document"
+                                 constraintName="FK_1" referencedColumnNames="id"
+                                 referencedTableName="document_type"/>
+    </changeSet>
+
 
 
     <changeSet id="5-s" author="mohamed salah">
@@ -110,6 +121,8 @@
             <column name="educationalQualification" type="VARCHAR(255)"/>
             <column name="address" type="VARCHAR(255)"/>
             <column name="directManager" type="VARCHAR(255)"/>
+            <column name="branch_id" type="INT"/>
+            <column name="department_id" type="INT"/>
         </createTable>
     </changeSet>
 
