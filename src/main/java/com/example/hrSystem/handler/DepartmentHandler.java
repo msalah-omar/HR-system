@@ -41,11 +41,11 @@ public class DepartmentHandler
 
     public ResponseEntity<?> getAll(Integer page, Integer size)
     {
-        Page<Department> sections = departmentService.getAll(page, size);
-        List<DepartmentDto> dtos = mapper.toDto(sections.getContent());
+        Page<Department> departments = departmentService.getAll(page, size);
+        List<DepartmentDto> dtos = mapper.toDto(departments.getContent());
         PaginatedResultDto<DepartmentDto> paginatedResultDto = new PaginatedResultDto<>();
         paginatedResultDto.setData(dtos);
-        paginatedResultDto.setPagination(paginationMapper.toPaginationDto(sections));
+        paginatedResultDto.setPagination(paginationMapper.toPaginationDto(departments));
         return ResponseEntity.ok(paginatedResultDto);
     }
 

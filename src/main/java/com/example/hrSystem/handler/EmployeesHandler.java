@@ -7,7 +7,6 @@ import com.example.hrSystem.Dto.commen.PaginatedResultDto;
 import com.example.hrSystem.Service.BranchesService;
 import com.example.hrSystem.Service.DepartmentService;
 import com.example.hrSystem.Service.EmployeesService;
-import com.example.hrSystem.entity.Branches;
 import com.example.hrSystem.entity.Employees;
 import com.example.hrSystem.exception.*;
 import com.example.hrSystem.mapper.EmployeesMapper;
@@ -67,7 +66,6 @@ public class EmployeesHandler
                 ()-> new ResourceNotFoundException(Employees.class.getSimpleName(),id));
 
         Optional<Employees> existedNationalId= employeesService.findNationalId(employeesDto.getNationalId());
-
         if(existedNationalId.isPresent() && !existedNationalId.get().getId().equals(id)){
             throw new ResourceAlreadyExistsException(Employees.class.getSimpleName(),
                     "NationalId", employeesDto.getNationalId(), ErrorCodes.DUPLICATE_RESOURCE.getCode());

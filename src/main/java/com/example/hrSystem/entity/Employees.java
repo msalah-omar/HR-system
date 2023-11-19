@@ -1,5 +1,6 @@
 package com.example.hrSystem.entity;
 
+import com.example.hrSystem.entity.commen.AuditingEntity;
 import com.example.hrSystem.entity.commen.JPAEntity;
 import lombok.Data;
 
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "Employees")
-public class Employees extends JPAEntity
+public class Employees extends AuditingEntity
 {
     @Column(name = "NAME")
     private String name;
@@ -47,6 +48,8 @@ public class Employees extends JPAEntity
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;
+
+
 
 
 }
