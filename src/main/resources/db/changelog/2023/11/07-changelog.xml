@@ -99,6 +99,18 @@
                                  referencedTableName="document_type"/>
     </changeSet>
 
+    <changeSet id="2145-4" author="mohamed salah">
+        <addForeignKeyConstraint baseColumnNames="branch_id" baseTableName="employees"
+                                 constraintName="FK_2" referencedColumnNames="id"
+                                 referencedTableName="branches"/>
+    </changeSet>
+
+    <changeSet id="5453-5" author="mohamed salah">
+        <addForeignKeyConstraint baseColumnNames="department_id" baseTableName="employees"
+                                 constraintName="FK_3" referencedColumnNames="id"
+                                 referencedTableName="department"/>
+    </changeSet>
+
 
 
     <changeSet id="5-s" author="mohamed salah">
