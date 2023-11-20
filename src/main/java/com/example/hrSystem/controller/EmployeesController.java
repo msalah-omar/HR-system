@@ -25,9 +25,9 @@ public class EmployeesController
 
     @GetMapping
     @Operation(summary = "Get All", description = "this api for get all employees")
-    public ResponseEntity<?> getAll(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size)
+    public ResponseEntity<?> getAll(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size,@RequestParam Integer id)
     {
-        return employeesHandler.getAll(page, size);
+        return employeesHandler.getAll(id,page, size);
     }
 
     @GetMapping("/{id}")

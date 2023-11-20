@@ -41,8 +41,10 @@ public class EmployeesHandler
         return ResponseEntity.ok(mapper.toDto(employees));
     }
 
-    public ResponseEntity<?> getAll(Integer page, Integer size)
+    public ResponseEntity<?> getAll(Integer id ,Integer page, Integer size)
     {
+        employeesService.getById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(Employees.class.getSimpleName(), id));
         Page<Employees> employees = employeesService.getAll(page, size);
         List<EmployeesDto> dtos = mapper.toDto(employees.getContent());
         PaginatedResultDto<EmployeesDto> paginatedResultDto = new PaginatedResultDto<>();

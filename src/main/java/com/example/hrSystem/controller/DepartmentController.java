@@ -25,9 +25,9 @@ public class DepartmentController
 
     @GetMapping
     @Operation(summary = "Get All", description = "this api for get all department")
-    public ResponseEntity<?> getAll(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size)
+    public ResponseEntity<?> getAll(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size,@RequestParam Integer id )
     {
-        return departmentHandler.getAll(page, size);
+        return departmentHandler.getAll( id,page, size);
     }
 
     @GetMapping("/{id}")

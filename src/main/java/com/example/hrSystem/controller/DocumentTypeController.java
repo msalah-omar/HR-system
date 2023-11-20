@@ -25,9 +25,9 @@ public class DocumentTypeController
 
     @GetMapping
     @Operation(summary = "Get All", description = "this api for get all Document Type")
-    public ResponseEntity<?> getAll(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size)
+    public ResponseEntity<?> getAll(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size,@RequestParam Integer id)
     {
-        return documentTypeHandler.getAll(page, size);
+        return documentTypeHandler.getAll(id,page, size);
     }
 
     @GetMapping("/{id}")

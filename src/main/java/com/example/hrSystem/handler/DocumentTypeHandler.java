@@ -42,8 +42,10 @@ public class DocumentTypeHandler
     }
 
 
-    public ResponseEntity<?> getAll(Integer page, Integer size)
+    public ResponseEntity<?> getAll(Integer id , Integer page , Integer size)
     {
+        documentTypeService.getById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(DocumentType.class.getSimpleName(), id));
         Page<DocumentType> documentTypes = documentTypeService.getAll(page, size);
         List<DocumentTypeDto> dtos = mapper.toDto(documentTypes.getContent());
         PaginatedResultDto<DocumentTypeDto> paginatedResultDto = new PaginatedResultDto<>();
