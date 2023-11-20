@@ -25,7 +25,9 @@ public class BranchesController
 
     @GetMapping
     @Operation(summary = "Get All", description = "this api for get all branches")
-    public ResponseEntity<?> getAll(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "10") Integer size,@RequestParam Integer id)
+    public ResponseEntity<?> getAll(@RequestParam(value = "page", defaultValue = "0") Integer page,
+                                    @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                    @RequestParam(value = "id" ,required = false) Integer id)
     {
         return branchesHandler.getAll( id,page, size);
     }
