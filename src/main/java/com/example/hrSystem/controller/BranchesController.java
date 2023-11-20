@@ -43,9 +43,10 @@ public class BranchesController
 
     @PostMapping
     @Operation(summary = "Add", description = "this api for add new branches")
-    public ResponseEntity<?> save(@Validated(InsertValidation.class) @RequestBody BranchesDto branchesDto)
+    public ResponseEntity<?> save(@Validated(InsertValidation.class) @RequestBody BranchesDto branchesDto,
+                                  @RequestParam(value = "id" ,required = false) Integer id)
     {
-        return branchesHandler.save(branchesDto);
+        return branchesHandler.save(branchesDto,id);
     }
 
     @PutMapping("/{id}")

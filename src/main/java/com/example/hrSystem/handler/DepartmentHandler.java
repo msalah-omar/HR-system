@@ -6,6 +6,7 @@ import com.example.hrSystem.Dto.DepartmentDto;
 import com.example.hrSystem.Dto.commen.PaginatedResultDto;
 import com.example.hrSystem.Service.DepartmentService;
 import com.example.hrSystem.entity.Department;
+import com.example.hrSystem.entity.DocumentType;
 import com.example.hrSystem.exception.ErrorCodes;
 import com.example.hrSystem.exception.ResourceNotFoundException;
 import com.example.hrSystem.exception.ResourceRelatedException;
@@ -30,8 +31,11 @@ public class DepartmentHandler
     private DepartmentMapper mapper;
     private PaginationMapper paginationMapper;
 
-    public ResponseEntity<?> save(DepartmentDto dto)
+    public ResponseEntity<?> save(DepartmentDto dto ,Integer id)
     {
+        departmentService.getById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(Department.class.getSimpleName(), id));
+
         Department department = mapper.toEntity(dto);
         departmentService.save(department);
         return ResponseEntity.ok(mapper.toDto(department));

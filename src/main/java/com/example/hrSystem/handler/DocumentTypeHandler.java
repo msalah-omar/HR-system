@@ -33,8 +33,11 @@ public class DocumentTypeHandler
     private DocumentTypeMapper mapper;
     private PaginationMapper paginationMapper;
 
-    public ResponseEntity<?> save(DocumentTypeDto dto)
+    public ResponseEntity<?> save(DocumentTypeDto dto , Integer id)
     {
+        documentTypeService.getById(id).
+                orElseThrow(() -> new ResourceNotFoundException(DocumentType.class.getSimpleName(), id));
+
         DocumentType documentType = mapper.toEntity(dto);
         documentTypeService.save(documentType);
         return ResponseEntity.ok(mapper.toDto(documentType));

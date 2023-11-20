@@ -31,10 +31,11 @@ public class BranchesHandler
     private BranchesMapper mapper;
     private PaginationMapper paginationMapper;
 
-    public ResponseEntity<?> save(BranchesDto dto)
+    public ResponseEntity<?> save(BranchesDto dto ,Integer id)
     {
+        branchesService.getById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(Branches.class.getSimpleName(), id));
         Branches branches = mapper.toEntity(dto);
-
         branchesService.save(branches);
         return ResponseEntity.ok(mapper.toDto(branches));
 

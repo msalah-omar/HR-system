@@ -43,9 +43,10 @@ public class EmployeesController
 
     @PostMapping
     @Operation(summary = "Add", description = "this api for add new employees")
-    public ResponseEntity<?> save(@Validated(InsertValidation.class) @RequestBody EmployeesDto employeesDto)
+    public ResponseEntity<?> save(@Validated(InsertValidation.class) @RequestBody EmployeesDto employeesDto,
+                                  @RequestParam(value = "id" ,required = false) Integer id)
     {
-        return employeesHandler.save(employeesDto);
+        return employeesHandler.save(id,employeesDto);
     }
 
     @PutMapping("/{id}")
