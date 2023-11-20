@@ -53,8 +53,10 @@ public class BranchesHandler
 
     public ResponseEntity<?> getById(Integer id)
     {
-        Optional<Branches> branches = branchesService.getById(id);
-        return ResponseEntity.ok(branches);
+        Branches branches = branchesService.getById(id).
+                orElseThrow(() -> new ResourceNotFoundException(Branches.class.getSimpleName(),id));
+        BranchesDto branchesDto = mapper.toDto(branches);
+        return ResponseEntity.ok(branchesDto);
     }
 
     public ResponseEntity<?> update(Integer id, BranchesDto branchesDto)

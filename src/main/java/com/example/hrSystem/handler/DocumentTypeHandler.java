@@ -14,6 +14,7 @@ import com.example.hrSystem.exception.Response;
 import com.example.hrSystem.mapper.DepartmentMapper;
 import com.example.hrSystem.mapper.DocumentTypeMapper;
 import com.example.hrSystem.mapper.PaginationMapper;
+import liquibase.pro.packaged.R;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -53,9 +54,10 @@ public class DocumentTypeHandler
 
     public ResponseEntity<?> getById(Integer id)
     {
-
-        Optional<DocumentType> documentType = documentTypeService.getById(id);
-        return ResponseEntity.ok(documentType);
+        DocumentType documentType = documentTypeService.getById(id).
+                orElseThrow(() -> new ResourceNotFoundException(DocumentType.class.getSimpleName(),id));
+        DocumentTypeDto documentTypeDto = mapper.toDto(documentType);
+        return ResponseEntity.ok(documentTypeDto);
     }
 
     public ResponseEntity<?> update(Integer id, DocumentTypeDto documentTypeDto)

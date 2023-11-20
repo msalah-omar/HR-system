@@ -50,9 +50,14 @@ public class DepartmentHandler
     }
 
     public ResponseEntity<?> getById(Integer id)
+
     {
-        Optional<Department> department = departmentService.getById(id);
-        return ResponseEntity.ok(department);
+        Department department = departmentService.getById(id).
+                orElseThrow(() -> new ResourceNotFoundException(Department.class.getSimpleName(),id));
+
+        DepartmentDto departmentDto = mapper.toDto(department);
+        return ResponseEntity.ok(departmentDto);
+
     }
 
     public ResponseEntity<?> update(Integer id, DepartmentDto departmentDto)

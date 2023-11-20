@@ -109,7 +109,7 @@ public class DocumentHandler
             document.setName(fileName);
             document.setPath(downloadUrl);
             document.setMediaType(file.getContentType());
-  //          document.setDocumentType(documentTypeService.getById(documentTypeId).get());
+           document.setDocumentType(documentTypeService.getById(documentTypeId).get());
             documentService.save(document);
             return ResponseEntity.ok(documentMapper.toDto(document));
     }
