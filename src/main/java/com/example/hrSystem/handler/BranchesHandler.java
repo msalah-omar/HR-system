@@ -41,10 +41,8 @@ public class BranchesHandler
     }
 
 
-    public ResponseEntity<?> getAll(Integer id, Integer page , Integer size)
+    public ResponseEntity<?> getAll( Integer page , Integer size)
     {
-        branchesService.getById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(Branches.class.getSimpleName(), id));
         Page<Branches> branches = branchesService.getAll(page, size);
         List<BranchesDto> dtos = mapper.toDto(branches.getContent());
         PaginatedResultDto<BranchesDto> paginatedResultDto = new PaginatedResultDto<>();

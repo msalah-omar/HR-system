@@ -41,10 +41,8 @@ public class DepartmentHandler
     }
 
 
-    public ResponseEntity<?> getAll(Integer id ,Integer page, Integer size)
+    public ResponseEntity<?> getAll(Integer page, Integer size)
     {
-        departmentService.getById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(Department.class.getSimpleName(), id));
         Page<Department> departments = departmentService.getAll(page, size);
         List<DepartmentDto> dtos = mapper.toDto(departments.getContent());
         PaginatedResultDto<DepartmentDto> paginatedResultDto = new PaginatedResultDto<>();
