@@ -21,6 +21,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,14 +34,19 @@ public class DocumentTypeHandler
     private DocumentTypeMapper mapper;
     private PaginationMapper paginationMapper;
 
-    public ResponseEntity<?> save(DocumentTypeDto dto , Integer id)
+    public ResponseEntity<?> save(DocumentTypeDto dto)
     {
-        documentTypeService.getById(id).
-                orElseThrow(() -> new ResourceNotFoundException(DocumentType.class.getSimpleName(), id));
+//        documentTypeService.getById(id).
+//                orElseThrow(() -> new ResourceNotFoundException(DocumentType.class.getSimpleName(), id));
+//
+//        DocumentType documentType = mapper.toEntity(dto);
+//        documentTypeService.save(documentType);
+//        return ResponseEntity.ok(mapper.toDto(documentType));
 
         DocumentType documentType = mapper.toEntity(dto);
         documentTypeService.save(documentType);
-        return ResponseEntity.ok(mapper.toDto(documentType));
+        DocumentTypeDto documentTypeDto = mapper.toDto(documentType);
+        return ResponseEntity.created(URI.create("/device/" + documentType.getId())).body(documentTypeDto);
 
     }
 

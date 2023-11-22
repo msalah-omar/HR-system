@@ -31,10 +31,8 @@ public class EmployeesHandler
     private PaginationMapper paginationMapper;
 
 
-    public ResponseEntity<?> save (Integer id,EmployeesDto employeesDto)
+    public ResponseEntity<?> save (EmployeesDto employeesDto)
     {
-         employeesService.getById(id).
-                orElseThrow(() -> new ResourceNotFoundException(Employees.class.getSimpleName(), id));
 
         Employees employees = mapper.toEntity(employeesDto);
         employees.setBranches(branchesService.getById(employeesDto.getBranches().getId()).get());

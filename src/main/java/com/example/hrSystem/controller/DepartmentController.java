@@ -43,10 +43,9 @@ public class DepartmentController
 
     @PostMapping
     @Operation(summary = "Add", description = "this api for add new department")
-    public ResponseEntity<?> save(@Validated(InsertValidation.class) @RequestBody DepartmentDto departmentDto,
-                                  @RequestParam(value = "id" ,required = false) Integer id)
+    public ResponseEntity<?> save(@Validated(InsertValidation.class) @RequestBody DepartmentDto departmentDto)
     {
-        return departmentHandler.save(departmentDto,id);
+        return departmentHandler.save(departmentDto);
     }
 
     @PutMapping("/{id}")

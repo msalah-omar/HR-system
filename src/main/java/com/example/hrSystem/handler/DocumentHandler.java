@@ -22,7 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.util.Optional;
+
 
 @Component
 @AllArgsConstructor
@@ -34,15 +34,9 @@ public class DocumentHandler
     private PaginationMapper paginationMapper;
 
 
-
-
-
-
-
-
     @Autowired
-    public DocumentHandler( DocumentService documentService,
-                           DocumentMapper documentMapper, PaginationMapper paginationMapper) {
+    public DocumentHandler(DocumentService documentService, DocumentMapper documentMapper, PaginationMapper paginationMapper)
+    {
 
         this.documentService = documentService;
         this.documentMapper = documentMapper;
@@ -51,17 +45,17 @@ public class DocumentHandler
     }
 
 
-    public ResponseEntity<?> getById(Integer id) {
-        Document document = documentService.getById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(Document.class.getSimpleName(), id));
+    public ResponseEntity<?> getById(Integer id)
+    {
+        Document document = documentService.getById(id).orElseThrow(() -> new ResourceNotFoundException(Document.class.getSimpleName(), id));
         DocumentDto documentDto = documentMapper.toDto(document);
         documentDto.setPath("C:/Users/Public/Downloads");
         return ResponseEntity.ok(documentDto);
     }
 
-    public ResponseEntity<?> save(Integer documentId, DocumentDto dto) {
-        DocumentType documentType = documentTypeService.getById(documentId)
-                .orElseThrow(() -> new ResourceNotFoundException(DocumentType.class.getSimpleName(), documentId));
+    public ResponseEntity<?> save(Integer documentId, DocumentDto dto)
+    {
+        DocumentType documentType = documentTypeService.getById(documentId).orElseThrow(() -> new ResourceNotFoundException(DocumentType.class.getSimpleName(), documentId));
 
         Document document = documentMapper.toEntity(dto);
         document.setDocumentType(documentType);
@@ -70,48 +64,48 @@ public class DocumentHandler
         return ResponseEntity.created(URI.create("/document/" + document.getId())).body(documentDto);
     }
 
-    public ResponseEntity<?> delete(Integer id) {
-        Document document = documentService.getById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(Document.class.getSimpleName(), id));
-        try {
+    public ResponseEntity<?> delete(Integer id)
+    {
+        Document document = documentService.getById(id).orElseThrow(() -> new ResourceNotFoundException(Document.class.getSimpleName(), id));
+        try
+        {
             documentService.delete(document);
-        } catch (Exception exception) {
+        } catch (Exception exception)
+        {
             return ResponseEntity.status(HttpStatus.FAILED_DEPENDENCY).build();
         }
         return ResponseEntity.noContent().build();
 
     }
 
-    public ResponseEntity<?> update(Integer id, DocumentDto documentDto) {
-        Document document = documentService.getFullDocumentById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(Document.class.getSimpleName(), id));
+    public ResponseEntity<?> update(Integer id, DocumentDto documentDto)
+    {
+        Document document = documentService.getFullDocumentById(id).orElseThrow(() -> new ResourceNotFoundException(Document.class.getSimpleName(), id));
         Document dto = documentMapper.updateEntityFromDto(documentDto, document);
         documentService.update(dto);
         return ResponseEntity.ok().build();
     }
 
-    public ResponseEntity<DocumentDto> upload(Integer documentId, MultipartFile file) {
-        documentService.getById(documentId)
-                .orElseThrow(() -> new ResourceNotFoundException(Document.class.getSimpleName(), documentId));
+    public ResponseEntity<DocumentDto> upload(Integer documentId, MultipartFile file)
+    {
+        documentService.getById(documentId).orElseThrow(() -> new ResourceNotFoundException(Document.class.getSimpleName(), documentId));
         documentService.upload(documentId, file);
         return ResponseEntity.created(URI.create("/document/" + documentId)).body(null);
     }
-    public ResponseEntity<?> handleFileUpload(MultipartFile file,Integer documentTypeId) throws IOException
+
+    public ResponseEntity<?> FileUpload(MultipartFile file, Integer documentTypeId) throws IOException
     {
         String fileName = file.getOriginalFilename();
 
-            file.transferTo(new File("C:\\Users\\Public\\Downloads\\" + fileName));
-            String downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/download/")
-                    .path(fileName)
-                    .toUriString();
-            Document document = new Document();
-            document.setName(fileName);
-            document.setPath(downloadUrl);
-            document.setMediaType(file.getContentType());
-           document.setDocumentType(documentTypeService.getById(documentTypeId).get());
-            documentService.save(document);
-            return ResponseEntity.ok(documentMapper.toDto(document));
+        file.transferTo(new File("C:\\Users\\Public\\Downloads\\" + fileName));
+        String downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/").path(fileName).toUriString();
+        Document document = new Document();
+        document.setName(fileName);
+        document.setPath(downloadUrl);
+        document.setMediaType(file.getContentType());
+     //   document.setDocumentType(documentTypeService.getById(documentTypeId).get());
+        documentService.save(document);
+        return ResponseEntity.ok(documentMapper.toDto(document));
     }
 
 }

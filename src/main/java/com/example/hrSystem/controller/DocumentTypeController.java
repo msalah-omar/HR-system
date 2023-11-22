@@ -43,10 +43,9 @@ public class DocumentTypeController
 
     @PostMapping
     @Operation(summary = "Add", description = "this api for add new Document Type")
-    public ResponseEntity<?> save(@Validated(InsertValidation.class) @RequestBody DocumentTypeDto documentTypeDto,
-                                  @RequestParam(value = "id" ,required = false) Integer id)
+    public ResponseEntity<?> save(@Validated(InsertValidation.class) @RequestBody DocumentTypeDto documentTypeDto)
     {
-        return documentTypeHandler.save(documentTypeDto,id);
+        return documentTypeHandler.save(documentTypeDto);
     }
 
     @PutMapping("/{id}")

@@ -51,7 +51,7 @@ public class DocumentController {
     @Operation(summary = "upload A Document")
     public ResponseEntity<?> handleFileUpload(MultipartFile file,@PathVariable(value = "documentTypeId") Integer documentTypeId) throws IOException
     {
-        return  documentHandler.handleFileUpload(file ,documentTypeId);
+        return  documentHandler.FileUpload(file ,documentTypeId);
     }
 
 

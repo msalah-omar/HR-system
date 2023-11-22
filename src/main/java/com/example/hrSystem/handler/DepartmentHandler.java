@@ -30,10 +30,9 @@ public class DepartmentHandler
     private DepartmentMapper mapper;
     private PaginationMapper paginationMapper;
 
-    public ResponseEntity<?> save(DepartmentDto dto ,Integer id)
+    public ResponseEntity<?> save(DepartmentDto dto )
     {
-        departmentService.getById(id)
-                .orElseThrow(() -> new ResourceNotFoundException(Department.class.getSimpleName(), id));
+
 
         Department department = mapper.toEntity(dto);
         departmentService.save(department);
