@@ -14,7 +14,7 @@ public class Branches extends LookupEntity
 {
 
 
-    @Column(name = "ADDRESS")
+    @Column(name = "branches_address")
     private String address;
 
 

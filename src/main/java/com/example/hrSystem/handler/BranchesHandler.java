@@ -3,7 +3,6 @@ package com.example.hrSystem.handler;
 import com.example.hrSystem.Dto.BranchesDto;
 import com.example.hrSystem.Dto.commen.PaginatedResultDto;
 import com.example.hrSystem.Service.BranchesService;
-import com.example.hrSystem.Service.DepartmentService;
 import com.example.hrSystem.entity.Branches;
 import com.example.hrSystem.exception.ErrorCodes;
 import com.example.hrSystem.exception.ResourceNotFoundException;
@@ -13,17 +12,16 @@ import com.example.hrSystem.mapper.BranchesMapper;
 import com.example.hrSystem.mapper.PaginationMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Component
 @AllArgsConstructor
+
 public class BranchesHandler
 {
 
@@ -39,7 +37,6 @@ public class BranchesHandler
         return ResponseEntity.ok(mapper.toDto(branches));
 
     }
-
 
     public ResponseEntity<?> getAll( Integer page , Integer size)
     {
@@ -71,8 +68,8 @@ public class BranchesHandler
     }
 
     public ResponseEntity<?> delete(Integer id)
-    {
 
+    {
         Branches branches = branchesService.getById(id).orElseThrow(() -> new ResourceNotFoundException(Branches.class.getSimpleName(), id));
         try
         {

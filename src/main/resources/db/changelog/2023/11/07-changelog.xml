@@ -11,8 +11,8 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_branches"/>
             </column>
             <column name="version" type="INT"/>
-            <column name="arabicName" type="VARCHAR(255)"/>
-            <column name="englishName" type="VARCHAR(255)"/>
+            <column name="arabic_name" type="VARCHAR(255)"/>
+            <column name="english_name" type="VARCHAR(255)"/>
             <column name="code" type="VARCHAR(255)"/>
             <column name="address" type="VARCHAR(255)"/>
             <column name="enabled" type="boolean"/>
@@ -34,28 +34,26 @@
     </changeSet>
 
 
-
-
-    <changeSet  id="3-vvv" author="mohamed salah" >
+    <changeSet id="3-vvv" author="mohamed salah">
         <insert tableName="document_type">
-            <column  name="arabic_name"  value="صوره البطاقه"/>
-            <column  name="english_name"  value="image identity"/>
-            <column  name="code"  value="IDENTITY"/>
+            <column name="arabic_name" value="صوره البطاقه"/>
+            <column name="english_name" value="image identity"/>
+            <column name="code" value="IDENTITY"/>
         </insert>
 
         <insert tableName="document_type">
-            <column  name="arabic_name"  value="صوره شخصيه"/>
-            <column  name="english_name"  value="image personal"/>
-            <column  name="code"  value="PERSONAL"/>
+            <column name="arabic_name" value="صوره شخصيه"/>
+            <column name="english_name" value="image personal"/>
+            <column name="code" value="PERSONAL"/>
         </insert>
 
     </changeSet>
 
-    <changeSet  id="4-vvv" author="mohamed salah" >
+    <changeSet id="4-vvv" author="mohamed salah">
         <insert tableName="document_type">
-            <column  name="arabic_name"  value="السيره الذاتيه"/>
-            <column  name="english_name"  value="CV"/>
-            <column  name="code"  value="CV"/>
+            <column name="arabic_name" value="السيره الذاتيه"/>
+            <column name="english_name" value="CV"/>
+            <column name="code" value="CV"/>
         </insert>
     </changeSet>
 
@@ -66,8 +64,8 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_department"/>
             </column>
             <column name="version" type="INT"/>
-            <column name="arabicName" type="VARCHAR(255)"/>
-            <column name="englishName" type="VARCHAR(255)"/>
+            <column name="arabic_name" type="VARCHAR(255)"/>
+            <column name="english_name" type="VARCHAR(255)"/>
             <column name="code" type="VARCHAR(255)"/>
             <column name="enabled" type="boolean"/>
 
@@ -93,26 +91,6 @@
 
     </changeSet>
 
-    <changeSet id="2-5" author="mohamed salah">
-        <addForeignKeyConstraint baseColumnNames="document_type_id" baseTableName="document"
-                                 constraintName="FK_1" referencedColumnNames="id"
-                                 referencedTableName="document_type"/>
-    </changeSet>
-
-    <changeSet id="2145-4" author="mohamed salah">
-        <addForeignKeyConstraint baseColumnNames="branch_id" baseTableName="employees"
-                                 constraintName="FK_2" referencedColumnNames="id"
-                                 referencedTableName="branches"/>
-    </changeSet>
-
-    <changeSet id="5453-5" author="mohamed salah">
-        <addForeignKeyConstraint baseColumnNames="department_id" baseTableName="employees"
-                                 constraintName="FK_3" referencedColumnNames="id"
-                                 referencedTableName="department"/>
-    </changeSet>
-
-
-
     <changeSet id="5-s" author="mohamed salah">
         <createTable tableName="employees">
             <column autoIncrement="true" name="id" type="INT">
@@ -126,17 +104,42 @@
             <column name="name" type="VARCHAR(255)"/>
             <column name="gender" type="VARCHAR(255)"/>
             <column name="age" type="VARCHAR(255)"/>
-            <column name="dateOfBirth" type="VARCHAR(255)"/>
+            <column name="date_of_birth" type="VARCHAR(255)"/>
             <column name="mobile" type="VARCHAR(255)"/>
-            <column name="maritalStatus" type="VARCHAR(255)"/>
-            <column name="nationalId" type="VARCHAR(255)"/>
-            <column name="educationalQualification" type="VARCHAR(255)"/>
+            <column name="marital_status" type="VARCHAR(255)"/>
+            <column name="national_id" type="VARCHAR(255)"/>
+            <column name="educational_qualification" type="VARCHAR(255)"/>
             <column name="address" type="VARCHAR(255)"/>
-            <column name="directManager" type="VARCHAR(255)"/>
+            <column name="direct_manager" type="VARCHAR(255)"/>
             <column name="branch_id" type="INT"/>
             <column name="department_id" type="INT"/>
         </createTable>
     </changeSet>
+
+
+    <changeSet id="2-5" author="mohamed salah">
+        <addForeignKeyConstraint baseColumnNames="document_type_id" baseTableName="document"
+                                 constraintName="FK_1" referencedColumnNames="id"
+                                 referencedTableName="document_type"/>
+    </changeSet>
+
+    <changeSet id="2145-3" author="mohamed salah">
+        <addForeignKeyConstraint baseColumnNames="branch_id" baseTableName="employees"
+                                 constraintName="FK_2" referencedColumnNames="id"
+                                 referencedTableName="branches"/>
+    </changeSet>
+
+    <changeSet id="5453-5" author="mohamed salah">
+        <addForeignKeyConstraint baseColumnNames="department_id" baseTableName="employees"
+                                 constraintName="FK_3" referencedColumnNames="id"
+                                 referencedTableName="department"/>
+    </changeSet>
+
+    <changeSet id="10" author="mohamed salah">
+        <renameColumn tableName="branches" oldColumnName="address" newColumnName="branches_address"/>
+    </changeSet>
+
+
 
 
 </databaseChangeLog>

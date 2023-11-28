@@ -49,7 +49,4 @@ public class Employees extends AuditingEntity
     @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;
 
-
-
-
 }
