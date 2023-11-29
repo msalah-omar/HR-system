@@ -46,7 +46,6 @@
             <column name="english_name" value="image personal"/>
             <column name="code" value="PERSONAL"/>
         </insert>
-
     </changeSet>
 
     <changeSet id="4-vvv" author="mohamed salah">
@@ -57,6 +56,13 @@
         </insert>
     </changeSet>
 
+    <changeSet id="20" author="mohamed salah">
+        <insert tableName="document_type">
+            <column name="arabic_name" value="شهاده الحيش"/>
+            <column name="english_name" value="Army Certificate"/>
+            <column name="code" value="Army Certificate"/>
+        </insert>
+    </changeSet>
 
     <changeSet id="6-n" author="mohamed salah">
         <createTable tableName="department">
