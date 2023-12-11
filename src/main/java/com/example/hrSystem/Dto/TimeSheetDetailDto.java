@@ -21,5 +21,6 @@ public class TimeSheetDetailDto extends GenericDto
     private Float startTime;
     private Float endTime;
     private Float timeHours;
+    private EmployeesDto employees;
 
 }
