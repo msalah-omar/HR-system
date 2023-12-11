@@ -25,8 +25,9 @@
             <column autoIncrement="true" name="id" type="INT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_time_sheet_detail"/>
             </column>
+            <column name="date" type="DATE"/>
             <column name="version" type="INT"/>
-            <column name="overtime" type="DATE"/>
+            <column name="overtime_date" type="DATE"/>
             <column name="overtime_hours" type="FLOAT"/>
             <column name="start_time" type="FLOAT"/>
             <column name="end_time" type="FLOAT"/>
