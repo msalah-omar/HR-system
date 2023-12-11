@@ -10,6 +10,7 @@ import java.time.LocalDate;
 public class TimeSheetDetailDto extends GenericDto
 {
 
+    private LocalDate salah;
     private LocalDate date;
     private LocalDate overtimeDate;
     private LocalDate taskId;
