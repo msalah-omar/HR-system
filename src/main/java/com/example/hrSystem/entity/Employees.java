@@ -49,5 +49,9 @@ public class Employees extends AuditingEntity
     @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;
 
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id")
+    private Project project;
+
 
 }

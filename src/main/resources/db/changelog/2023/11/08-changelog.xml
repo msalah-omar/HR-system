@@ -20,6 +20,36 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="698-ll" author="mohamed salah">
+        <insert tableName="project">
+            <column name="version" valueNumeric="0"/>
+            <column name="arabic_name" value="الشهر العقاري في قطر"/>
+            <column name="english_name" value="sak"/>
+            <column name="code" value="sak"/>
+            <column name="enabled" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="4587-ff" author="mohamed salah">
+        <insert tableName="project">
+            <column name="version" valueNumeric="0"/>
+            <column name="arabic_name" value="المطالبات"/>
+            <column name="english_name" value="claims"/>
+            <column name="code" value="claims"/>
+            <column name="enabled" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="4874-ff" author="mohamed salah">
+        <insert tableName="project">
+            <column name="version" valueNumeric="0"/>
+            <column name="arabic_name" value="الانتحابات"/>
+            <column name="english_name" value=" elections"/>
+            <column name="code" value=" elections"/>
+            <column name="enabled" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+
     <changeSet id="415-44" author="mohamed salah">
         <createTable tableName="time_sheet_detail">
             <column autoIncrement="true" name="id" type="INT">
@@ -27,12 +57,10 @@
             </column>
             <column name="date" type="DATE"/>
             <column name="version" type="INT"/>
-            <column name="overtime_date" type="DATE"/>
             <column name="overtime_hours" type="FLOAT"/>
             <column name="start_time" type="FLOAT"/>
             <column name="end_time" type="FLOAT"/>
             <column name="time_hours" type="FLOAT"/>
-            <column name="task_id" type="INT"/>
             <column name="task_desc" type="VARCHAR(255)"/>
             <column name="approval_status" type="boolean"/>
             <column name="billable" type="boolean"/>

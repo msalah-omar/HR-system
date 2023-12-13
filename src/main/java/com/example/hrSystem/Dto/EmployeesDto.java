@@ -34,5 +34,6 @@ public class EmployeesDto
     private String directManager;
     private BranchesDto branches;
     private DepartmentDto department;
+    private ProjectDto project;
 
 }

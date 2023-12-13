@@ -119,9 +119,15 @@
             <column name="direct_manager" type="VARCHAR(255)"/>
             <column name="branch_id" type="INT"/>
             <column name="department_id" type="INT"/>
+            <column name="project_id" type="INT"/>
         </createTable>
     </changeSet>
 
+    <changeSet id="10-20" author="mohamed salah">
+        <addForeignKeyConstraint baseColumnNames="project_id" baseTableName="employees"
+                                 constraintName="FK_6" referencedColumnNames="id"
+                                 referencedTableName="project"/>
+    </changeSet>
 
     <changeSet id="2-5" author="mohamed salah">
         <addForeignKeyConstraint baseColumnNames="document_type_id" baseTableName="document"

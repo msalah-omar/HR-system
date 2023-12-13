@@ -34,6 +34,11 @@ public class TimeSheetDetailHandler
 
     public ResponseEntity<?> save(TimeSheetDetailDto dto)
     {
+//        Float differenceHours = dto.getTimeHours();
+//        if (differenceHours > 8) {
+//            Integer timeHours = dto.getTimeHours().compareTo(differenceHours);
+//            timeHours = timeHours - 8;
+//            timeHours.compareTo(timeHours);}
         TimeSheetDetail timeSheetDetail = mapper.toEntity(dto);
         timeSheetDetailService.save(timeSheetDetail);
         return ResponseEntity.ok(mapper.toDto(timeSheetDetail));

@@ -14,14 +14,8 @@ public class TimeSheetDetail extends JPAEntity
     @Column( name = "date")
     private LocalDate date;
 
-    @Column( name = "overtime_date")
-    private LocalDate overtimeDate;
-
     @Column( name = "overtime_hours")
     private Float overtimeHours;
-
-    @Column( name = "task_id")
-    private Integer taskId;
 
     @Column( name = "task_desc")
     private String taskDesc;

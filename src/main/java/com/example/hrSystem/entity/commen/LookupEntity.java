@@ -3,6 +3,7 @@ package com.example.hrSystem.entity.commen;
 import com.example.hrSystem.entity.commen.JPAEntity;
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass

@@ -7,6 +7,7 @@ import com.example.hrSystem.Dto.commen.PaginatedResultDto;
 import com.example.hrSystem.Service.BranchesService;
 import com.example.hrSystem.Service.DepartmentService;
 import com.example.hrSystem.Service.EmployeesService;
+import com.example.hrSystem.Service.ProjectService;
 import com.example.hrSystem.entity.Employees;
 import com.example.hrSystem.exception.*;
 import com.example.hrSystem.mapper.EmployeesMapper;
@@ -25,6 +26,7 @@ import java.util.Optional;
 public class EmployeesHandler
 {
     private EmployeesService employeesService;
+    private ProjectService projectService;
     private EmployeesMapper mapper;
     private DepartmentService departmentService;
     private BranchesService branchesService;
@@ -37,6 +39,7 @@ public class EmployeesHandler
         Employees employees = mapper.toEntity(employeesDto);
         employees.setBranches(branchesService.getById(employeesDto.getBranches().getId()).get());
         employees.setDepartment(departmentService.getById(employeesDto.getDepartment().getId()).get());
+        employees.setProject(projectService.getById(employeesDto.getProject().getId()).get());
         employeesService.save(employees);
         return ResponseEntity.ok(mapper.toDto(employees));
     }
