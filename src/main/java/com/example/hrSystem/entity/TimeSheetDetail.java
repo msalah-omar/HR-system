@@ -5,14 +5,18 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @Table(name = "time_sheet_detail")
 public class TimeSheetDetail extends JPAEntity
 {
-    @Column( name = "date")
-    private LocalDate date;
+    @Column( name = "start_date")
+    private LocalDateTime startDate;
+
+    @Column( name = "end_date")
+    private LocalDateTime endDate;
 
     @Column( name = "overtime_hours")
     private Float overtimeHours;
@@ -29,14 +33,6 @@ public class TimeSheetDetail extends JPAEntity
     @Column(name = "comments")
     private String comments;
 
-    @Column( name = "start_time")
-    private Float startTime;
-
-    @Column( name = "end_time")
-    private Float endTime;
-
-    @Column( name = "time_hours")
-    private Float timeHours;
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "employees_id")

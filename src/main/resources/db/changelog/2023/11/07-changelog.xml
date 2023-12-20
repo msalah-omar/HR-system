@@ -125,7 +125,7 @@
 
     <changeSet id="10-20" author="mohamed salah">
         <addForeignKeyConstraint baseColumnNames="project_id" baseTableName="employees"
-                                 constraintName="FK_6" referencedColumnNames="id"
+                                 constraintName="FK_8" referencedColumnNames="id"
                                  referencedTableName="project"/>
     </changeSet>
 

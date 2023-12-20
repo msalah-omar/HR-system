@@ -15,12 +15,15 @@ import com.example.hrSystem.mapper.TimeSheetDetailMapper;
 
 
 import lombok.AllArgsConstructor;
+import org.hibernate.type.LocalDateTimeType;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -34,12 +37,12 @@ public class TimeSheetDetailHandler
 
     public ResponseEntity<?> save(TimeSheetDetailDto dto)
     {
-//        Float differenceHours = dto.getTimeHours();
-//        if (differenceHours > 8) {
-//            Integer timeHours = dto.getTimeHours().compareTo(differenceHours);
-//            timeHours = timeHours - 8;
-//            timeHours.compareTo(timeHours);}
+
         TimeSheetDetail timeSheetDetail = mapper.toEntity(dto);
+        Duration duration = Duration.between(dto.getStartDate(),dto.getEndDate());
+        long l = duration.toHours();
+        System.out.println(l);
+        //
         timeSheetDetailService.save(timeSheetDetail);
         return ResponseEntity.ok(mapper.toDto(timeSheetDetail));
 
