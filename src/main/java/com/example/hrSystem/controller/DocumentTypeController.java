@@ -2,7 +2,6 @@ package com.example.hrSystem.controller;
 
 import com.example.hrSystem.Dto.DepartmentDto;
 import com.example.hrSystem.Dto.DocumentTypeDto;
-import com.example.hrSystem.handler.DepartmentHandler;
 import com.example.hrSystem.handler.DocumentTypeHandler;
 import com.example.hrSystem.validation.InsertValidation;
 import com.example.hrSystem.validation.UpdateValidation;

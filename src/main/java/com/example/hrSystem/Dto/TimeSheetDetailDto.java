@@ -4,8 +4,6 @@ import com.example.hrSystem.Dto.commen.GenericDto;
 import lombok.Data;
 
 
-import javax.persistence.Column;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data

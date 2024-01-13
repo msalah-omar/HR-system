@@ -1,34 +1,43 @@
 package com.example.hrSystem.entity;
 
+
 import com.example.hrSystem.entity.commen.JPAEntity;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
-@EqualsAndHashCode(of = "id", callSuper = false)
-@ToString(of = "id", callSuper = false)
-@Table(name = "user", schema = "public")
+@Table(name = "USERS")
 public class User extends JPAEntity
 {
-    @Column(name = "username")
-    public String username;
 
-    @Column(name = "phone")
-    public String phone;
+    @Column(name = "USER_NAME")
+    private String username;
 
-    @Column(name = "email")
-    public String email;
+    @Column(name = "ARABIC_NAME" ,columnDefinition = "NVARCHAR(255)")
+    private String arabicName;
 
-    @Column(name = "password")
-    public String password;
+    @Column(name = "ENGLISH_NAME")
+    private String englishName;
 
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
+    @Column(name = "PASSWORD")
+    private String password;
+
+    @Column(name = "IS_ACTIVE")
+    private Boolean isActive;
+
+    @Column(name = "IS_TEMPORARY_PASSWORD")
+    private Boolean isTemporaryPassword;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "USER_ROLE",
+            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "id")}
+    )
+    private Set<Role> roles;
+
+
 }

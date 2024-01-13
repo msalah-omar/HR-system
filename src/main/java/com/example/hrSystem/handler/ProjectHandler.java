@@ -1,6 +1,7 @@
 package com.example.hrSystem.handler;
 
 
+
 import com.example.hrSystem.Dto.ProjectDto;
 import com.example.hrSystem.Dto.commen.PaginatedResultDto;
 import com.example.hrSystem.Service.ProjectService;
@@ -9,15 +10,15 @@ import com.example.hrSystem.entity.Project;
 import com.example.hrSystem.exception.ErrorCodes;
 import com.example.hrSystem.exception.ResourceNotFoundException;
 import com.example.hrSystem.exception.ResourceRelatedException;
-import com.example.hrSystem.exception.Response;
 import com.example.hrSystem.mapper.PaginationMapper;
 import com.example.hrSystem.mapper.ProjectMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.net.URI;
 import java.util.List;
 
 @Component
@@ -28,13 +29,12 @@ public class ProjectHandler
     private ProjectMapper mapper;
     private PaginationMapper paginationMapper;
 
-    public ResponseEntity<?> save(ProjectDto dto )
+    public ResponseEntity<?> save(ProjectDto dto)
     {
-
         Project project = mapper.toEntity(dto);
         projectService.save(project);
-        return ResponseEntity.ok(mapper.toDto(project));
-
+        ProjectDto projectDto = mapper.toDto(project);
+        return ResponseEntity.created(URI.create("/project/" + project.getId())).body(projectDto);
     }
 
     public ResponseEntity<?> getAll( Integer page , Integer size)
@@ -67,7 +67,6 @@ public class ProjectHandler
     }
 
     public ResponseEntity<?> delete(Integer id)
-
     {
         Project project = projectService.getById(id).orElseThrow(() -> new ResourceNotFoundException(Project.class.getSimpleName(), id));
         try
@@ -77,6 +76,6 @@ public class ProjectHandler
         {
             throw new ResourceRelatedException(Project.class.getSimpleName(), "Id", id.toString(), ErrorCodes.RELATED_RESOURCE.getCode());
         }
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response("deleted"));
+        return ResponseEntity.noContent().build();
     }
 }

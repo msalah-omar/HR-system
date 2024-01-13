@@ -7,15 +7,14 @@ import com.example.hrSystem.entity.Branches;
 import com.example.hrSystem.exception.ErrorCodes;
 import com.example.hrSystem.exception.ResourceNotFoundException;
 import com.example.hrSystem.exception.ResourceRelatedException;
-import com.example.hrSystem.exception.Response;
 import com.example.hrSystem.mapper.BranchesMapper;
 import com.example.hrSystem.mapper.PaginationMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.net.URI;
 import java.util.List;
 
 
@@ -29,16 +28,16 @@ public class BranchesHandler
     private BranchesMapper mapper;
     private PaginationMapper paginationMapper;
 
-    public ResponseEntity<?> save(BranchesDto dto )
-    {
 
+    public ResponseEntity<?> save(BranchesDto dto)
+    {
         Branches branches = mapper.toEntity(dto);
         branchesService.save(branches);
-        return ResponseEntity.ok(mapper.toDto(branches));
-
+        BranchesDto branchesDto = mapper.toDto(branches);
+        return ResponseEntity.created(URI.create("/branches/" + branches.getId())).body(branchesDto);
     }
 
-    public ResponseEntity<?> getAll( Integer page , Integer size)
+    public ResponseEntity<?> getAll(Integer page, Integer size)
     {
         Page<Branches> branches = branchesService.getAll(page, size);
         List<BranchesDto> dtos = mapper.toDto(branches.getContent());
@@ -50,8 +49,7 @@ public class BranchesHandler
 
     public ResponseEntity<?> getById(Integer id)
     {
-        Branches branches = branchesService.getById(id).
-                orElseThrow(() -> new ResourceNotFoundException(Branches.class.getSimpleName(),id));
+        Branches branches = branchesService.getById(id).orElseThrow(() -> new ResourceNotFoundException(Branches.class.getSimpleName(), id));
         BranchesDto branchesDto = mapper.toDto(branches);
         return ResponseEntity.ok(branchesDto);
     }
@@ -59,8 +57,7 @@ public class BranchesHandler
     public ResponseEntity<?> update(Integer id, BranchesDto branchesDto)
     {
 
-        Branches branches=branchesService.getById(id).orElseThrow(
-                ()->new ResourceNotFoundException(Branches.class.getSimpleName(),id));
+        Branches branches = branchesService.getById(id).orElseThrow(() -> new ResourceNotFoundException(Branches.class.getSimpleName(), id));
         mapper.updateEntityFromDto(branchesDto, branches);
         branchesService.update(branches);
         BranchesDto dto = mapper.toDto(branches);
@@ -68,7 +65,6 @@ public class BranchesHandler
     }
 
     public ResponseEntity<?> delete(Integer id)
-
     {
         Branches branches = branchesService.getById(id).orElseThrow(() -> new ResourceNotFoundException(Branches.class.getSimpleName(), id));
         try
@@ -78,6 +74,6 @@ public class BranchesHandler
         {
             throw new ResourceRelatedException(Branches.class.getSimpleName(), "Id", id.toString(), ErrorCodes.RELATED_RESOURCE.getCode());
         }
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response("deleted"));
+        return ResponseEntity.noContent().build();
     }
 }

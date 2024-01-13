@@ -1,23 +1,26 @@
 package com.example.hrSystem.utils;
 
-
 import org.hibernate.Hibernate;
 
 import java.util.List;
 import java.util.Set;
 
-public class HibernateUtils {
-    public static boolean isConvertible(Set<?> set) {
+public class HibernateUtils
+{
+
+    public static boolean isConvertable(Set<?> set) {
         if (set == null)
             return false;
         return Hibernate.isInitialized(set);
     }
 
-    public static boolean isConvertible(List<?> list) {
+    public static boolean isConvertable(List<?> list) {
         return Hibernate.isInitialized(list);
     }
 
-    public static boolean isConvertible(Object obj) {
+    public static boolean isConvertable(Object obj) {
         return Hibernate.isInitialized(obj);
     }
+
 }
+

@@ -3,7 +3,6 @@ package com.example.hrSystem.mapper;
 import com.example.hrSystem.Dto.DocumentTypeDto;
 import com.example.hrSystem.Dto.EmployeesDto;
 import com.example.hrSystem.entity.DocumentType;
-import com.example.hrSystem.entity.Employees;
 import org.mapstruct.*;
 
 import java.util.List;

@@ -39,9 +39,7 @@ public class DepartmentService
     }
 
 
-    public List<Department> delete(Department department)
-    {
+    public void delete(Department department) {
         departmentRepository.delete(department);
-        return null;
     }
 }

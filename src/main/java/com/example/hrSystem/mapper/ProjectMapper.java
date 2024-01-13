@@ -2,7 +2,6 @@ package com.example.hrSystem.mapper;
 
 import com.example.hrSystem.Dto.DocumentTypeDto;
 import com.example.hrSystem.Dto.ProjectDto;
-import com.example.hrSystem.entity.DocumentType;
 import com.example.hrSystem.entity.Project;
 import org.mapstruct.*;
 

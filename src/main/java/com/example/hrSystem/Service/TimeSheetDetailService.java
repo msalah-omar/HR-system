@@ -39,9 +39,8 @@ public class TimeSheetDetailService
     }
 
 
-    public List<TimeSheetDetail> delete(TimeSheetDetail timeSheetDetail)
+    public void  delete(TimeSheetDetail timeSheetDetail)
     {
         timeSheetDetailRepository.delete(timeSheetDetail);
-        return null;
     }
 }

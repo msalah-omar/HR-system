@@ -1,10 +1,12 @@
 package com.example.hrSystem.handler;
 
+import com.example.hrSystem.Dto.DepartmentDto;
 import com.example.hrSystem.Dto.TimeSheetDetailDto;
 
 import com.example.hrSystem.Dto.commen.PaginatedResultDto;
 import com.example.hrSystem.Service.TimeSheetDetailService;
 
+import com.example.hrSystem.entity.Department;
 import com.example.hrSystem.entity.TimeSheetDetail;
 import com.example.hrSystem.exception.ErrorCodes;
 import com.example.hrSystem.exception.ResourceNotFoundException;
@@ -15,15 +17,14 @@ import com.example.hrSystem.mapper.TimeSheetDetailMapper;
 
 
 import lombok.AllArgsConstructor;
-import org.hibernate.type.LocalDateTimeType;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 
+import java.net.URI;
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -35,18 +36,18 @@ public class TimeSheetDetailHandler
     private TimeSheetDetailMapper mapper;
     private PaginationMapper paginationMapper;
 
-    public ResponseEntity<?> save(TimeSheetDetailDto dto)
-    {
-
+    public ResponseEntity<?> save(TimeSheetDetailDto dto) {
         TimeSheetDetail timeSheetDetail = mapper.toEntity(dto);
         Duration duration = Duration.between(dto.getStartDate(),dto.getEndDate());
         long l = duration.toHours();
         System.out.println(l);
-        //
+        l = l - 8;
+        timeSheetDetail.setOvertimeHours((float) l);
         timeSheetDetailService.save(timeSheetDetail);
-        return ResponseEntity.ok(mapper.toDto(timeSheetDetail));
-
+        TimeSheetDetailDto timeSheetDetailDto = mapper.toDto(timeSheetDetail);
+        return ResponseEntity.created(URI.create("/timeSheetDetail/" + timeSheetDetail.getId())).body(timeSheetDetailDto);
     }
+
 
     public ResponseEntity<?> getAll( Integer page , Integer size)
     {
@@ -89,6 +90,6 @@ public class TimeSheetDetailHandler
         {
             throw new ResourceRelatedException(TimeSheetDetail.class.getSimpleName(), "Id", id.toString(), ErrorCodes.RELATED_RESOURCE.getCode());
         }
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response("deleted"));
+        return ResponseEntity.noContent().build();
     }
 }

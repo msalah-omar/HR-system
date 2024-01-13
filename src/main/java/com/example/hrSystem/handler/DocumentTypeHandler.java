@@ -3,7 +3,6 @@ package com.example.hrSystem.handler;
 import com.example.hrSystem.Dto.DepartmentDto;
 import com.example.hrSystem.Dto.DocumentTypeDto;
 import com.example.hrSystem.Dto.commen.PaginatedResultDto;
-import com.example.hrSystem.Service.DepartmentService;
 import com.example.hrSystem.Service.DocumentTypeService;
 import com.example.hrSystem.entity.Department;
 import com.example.hrSystem.entity.DocumentType;
@@ -11,10 +10,8 @@ import com.example.hrSystem.exception.ErrorCodes;
 import com.example.hrSystem.exception.ResourceNotFoundException;
 import com.example.hrSystem.exception.ResourceRelatedException;
 import com.example.hrSystem.exception.Response;
-import com.example.hrSystem.mapper.DepartmentMapper;
 import com.example.hrSystem.mapper.DocumentTypeMapper;
 import com.example.hrSystem.mapper.PaginationMapper;
-import liquibase.pro.packaged.R;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -23,7 +20,6 @@ import org.springframework.stereotype.Component;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @AllArgsConstructor

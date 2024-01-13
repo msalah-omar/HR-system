@@ -3,7 +3,7 @@ package com.example.hrSystem.mapper;
 import com.example.hrSystem.Dto.DocumentDto;
 import com.example.hrSystem.Service.DocumentTypeService;
 import com.example.hrSystem.entity.Document;
-import com.example.hrSystem.utils.HibernateUtils;
+
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,14 +27,14 @@ public abstract class DocumentMapper {
 
     public abstract List<DocumentDto> toDto(List<Document> documentList);
 
-    @AfterMapping
-    public void toDtoAfterMapping(Document document, @MappingTarget DocumentDto dto) {
-
-        if (HibernateUtils.isConvertible(document.getDocumentType())) {
-            dto.setDocumentType(documentTypeMapper.toDto(document.getDocumentType()));
-        }
-
-    }
+//    @AfterMapping
+//    public void toDtoAfterMapping(Document document, @MappingTarget DocumentDto dto) {
+//
+//        if (HibernateUtils.getHibernateQuery(document.getDocumentType())) {
+//            dto.setDocumentType(documentTypeMapper.toDto(document.getDocumentType()));
+//        }
+//
+//    }
 
     @InheritInverseConfiguration
     public abstract Document toEntity(DocumentDto dto);

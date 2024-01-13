@@ -40,9 +40,8 @@ public class ProjectService
     }
 
 
-    public List<Project> delete(Project project)
+    public void delete(Project project)
     {
         projectRepository.delete(project);
-        return null;
     }
 }

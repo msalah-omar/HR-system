@@ -19,6 +19,20 @@
         </createTable>
     </changeSet>
 
+    <changeSet id="5050=40" author="mohamed salah">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="user_name" type="VARCHAR(255)"/>
+            <column name="arabic_name" type="VARCHAR(255)"/>
+            <column name="english_name" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="isActive" type="boolean"/>
+            <column name="is_temporary_password" type="boolean"/>
+        </createTable>
+    </changeSet>
+
 
     <changeSet id="2" author="mohamed salah">
         <createTable tableName="document_type">
@@ -75,6 +89,30 @@
             <column name="code" type="VARCHAR(255)"/>
             <column name="enabled" type="boolean"/>
 
+        </createTable>
+    </changeSet>
+
+    <changeSet id="12345-j" author="mohamed salah">
+        <createTable tableName="kind_of_vacation">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_kind_of_vacation"/>
+            </column>
+            <column name="version" type="INT"/>
+            <column name="arabic_name" type="VARCHAR(255)"/>
+            <column name="english_name" type="VARCHAR(255)"/>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="enabled" type="boolean"/>
+
+        </createTable>
+    </changeSet>
+
+    <changeSet id="12345-15" author="mohamed salah">
+        <createTable tableName="vacation">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_vacation"/>
+            </column>
+            <column name="number_of_vacation" type="INT"/>
+            <column name="vacation_date" type="DATE"/>
         </createTable>
     </changeSet>
 

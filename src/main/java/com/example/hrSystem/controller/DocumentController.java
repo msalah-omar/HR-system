@@ -2,18 +2,14 @@ package com.example.hrSystem.controller;
 
 
 import com.example.hrSystem.Dto.DocumentDto;
-import com.example.hrSystem.entity.Document;
 import com.example.hrSystem.handler.DocumentHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.io.File;
 import java.io.IOException;
 
 @RestController

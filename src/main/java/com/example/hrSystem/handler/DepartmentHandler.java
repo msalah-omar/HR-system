@@ -6,7 +6,6 @@ import com.example.hrSystem.Dto.DepartmentDto;
 import com.example.hrSystem.Dto.commen.PaginatedResultDto;
 import com.example.hrSystem.Service.DepartmentService;
 import com.example.hrSystem.entity.Department;
-import com.example.hrSystem.entity.DocumentType;
 import com.example.hrSystem.exception.ErrorCodes;
 import com.example.hrSystem.exception.ResourceNotFoundException;
 import com.example.hrSystem.exception.ResourceRelatedException;
@@ -19,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.net.URI;
 import java.util.List;
 
 @Component
@@ -30,14 +30,13 @@ public class DepartmentHandler
     private DepartmentMapper mapper;
     private PaginationMapper paginationMapper;
 
-    public ResponseEntity<?> save(DepartmentDto dto )
-    {
 
 
+    public ResponseEntity<?> save(DepartmentDto dto) {
         Department department = mapper.toEntity(dto);
         departmentService.save(department);
-        return ResponseEntity.ok(mapper.toDto(department));
-
+        DepartmentDto departmentDto = mapper.toDto(department);
+        return ResponseEntity.created(URI.create("/department/" + department.getId())).body(departmentDto);
     }
 
 
@@ -73,17 +72,14 @@ public class DepartmentHandler
         return ResponseEntity.ok(dto);
     }
 
-    public ResponseEntity<?> delete(Integer id)
-    {
-
-        Department department = departmentService.getById(id).orElseThrow(() -> new ResourceNotFoundException(Department.class.getSimpleName(), id));
-        try
-        {
+    public ResponseEntity<?> delete(Integer id) {
+        Department department = departmentService.getById(id).
+                orElseThrow(() -> new ResourceNotFoundException(Department.class.getSimpleName(), id));
+        try {
             departmentService.delete(department);
-        } catch (Exception exception)
-        {
+        } catch (Exception exception) {
             throw new ResourceRelatedException(Department.class.getSimpleName(), "Id", id.toString(), ErrorCodes.RELATED_RESOURCE.getCode());
         }
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response("deleted"));
+        return ResponseEntity.noContent().build();
     }
 }

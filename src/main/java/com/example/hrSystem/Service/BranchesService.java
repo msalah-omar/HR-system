@@ -1,6 +1,7 @@
 package com.example.hrSystem.Service;
 
 import com.example.hrSystem.entity.Branches;
+import com.example.hrSystem.entity.Department;
 import com.example.hrSystem.repository.BranchesRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -40,9 +41,7 @@ public class BranchesService
     }
 
 
-    public List<Branches> delete(Branches branches)
-    {
+    public void delete(Branches branches) {
         branchesRepository.delete(branches);
-        return null;
     }
 }
