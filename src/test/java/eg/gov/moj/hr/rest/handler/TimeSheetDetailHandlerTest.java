@@ -5,19 +5,23 @@ import com.example.hrSystem.Dto.DepartmentDto;
 import com.example.hrSystem.Dto.TimeSheetDetailDto;
 import com.example.hrSystem.Dto.commen.PaginatedResultDto;
 import com.example.hrSystem.Dto.commen.PaginationDto;
+import com.example.hrSystem.Service.EmployeesService;
 import com.example.hrSystem.Service.TimeSheetDetailService;
 
+
 import com.example.hrSystem.entity.Department;
+import com.example.hrSystem.entity.Employees;
 import com.example.hrSystem.entity.TimeSheetDetail;
 import com.example.hrSystem.handler.TimeSheetDetailHandler;
 
 import com.example.hrSystem.mapper.PaginationMapper;
 import com.example.hrSystem.mapper.TimeSheetDetailMapper;
-import liquibase.pro.packaged.T;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+
 
 import java.net.URI;
 import java.util.List;
@@ -32,8 +36,10 @@ public class TimeSheetDetailHandlerTest
     private TimeSheetDetailService timeSheetDetailService = mock(TimeSheetDetailService.class);
     private TimeSheetDetailMapper mapper = mock(TimeSheetDetailMapper.class);
     private PaginationMapper paginationMapper = mock(PaginationMapper.class);
+    private EmployeesService employeesService = mock(EmployeesService.class);
+    Employees employees = mock(Employees.class);
 
-    private TimeSheetDetailHandler timeSheetDetailHandler = new TimeSheetDetailHandler(timeSheetDetailService, mapper, paginationMapper);
+    private TimeSheetDetailHandler timeSheetDetailHandler = new TimeSheetDetailHandler(timeSheetDetailService, mapper, paginationMapper, employeesService);
 
 
     @Test
@@ -75,21 +81,25 @@ public class TimeSheetDetailHandlerTest
         assertEquals(expectedResponse, response);
     }
 
-//    @Test
-//    public void testSave()
-//    {
-//        TimeSheetDetail timeSheetDetail = mock(TimeSheetDetail.class);
-//        TimeSheetDetailDto timeSheetDetailDto = mock(TimeSheetDetailDto.class);
-//
-//        Mockito.when(mapper.toEntity(timeSheetDetailDto)).thenReturn(timeSheetDetail);
-//        Mockito.when(timeSheetDetailService.save(timeSheetDetail)).thenReturn(timeSheetDetail);
-//        Mockito.when(mapper.toDto(timeSheetDetail)).thenReturn(timeSheetDetailDto);
-//
-//        ResponseEntity<?> response = timeSheetDetailHandler.save(timeSheetDetailDto);
-//        ResponseEntity<?> expectedResponse = ResponseEntity.created(URI.create("/timeSheetDetail/" + timeSheetDetail.getId())).body(timeSheetDetailDto);
-//
-//        assertEquals(expectedResponse, response);
-//    }
+    @Test
+    public void testSave()
+    {
+        TimeSheetDetail timeSheetDetail = mock(TimeSheetDetail.class);
+        TimeSheetDetailDto timeSheetDetailDto = mock(TimeSheetDetailDto.class);
+
+        Mockito.when(mapper.toEntity(timeSheetDetailDto)).thenReturn(timeSheetDetail);
+        Mockito.when(timeSheetDetailService.save(timeSheetDetail)).thenReturn(timeSheetDetail);
+        Mockito.when(mapper.toDto(timeSheetDetail)).thenReturn(timeSheetDetailDto);
+
+        ResponseEntity<?> response = timeSheetDetailHandler.save(timeSheetDetailDto);
+        ResponseEntity<?> expectedResponse = ResponseEntity.created(URI.create("/timeSheetDetail/" + timeSheetDetail.getId())).body(timeSheetDetailDto);
+
+        assertEquals(expectedResponse, response);
+    }
+
+
+
+
 
     @Test
     public void testUpdate()

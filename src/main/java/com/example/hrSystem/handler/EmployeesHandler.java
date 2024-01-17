@@ -2,12 +2,11 @@ package com.example.hrSystem.handler;
 
 
 
+import com.example.hrSystem.Dto.DepartmentDto;
 import com.example.hrSystem.Dto.EmployeesDto;
 import com.example.hrSystem.Dto.commen.PaginatedResultDto;
-import com.example.hrSystem.Service.BranchesService;
-import com.example.hrSystem.Service.DepartmentService;
-import com.example.hrSystem.Service.EmployeesService;
-import com.example.hrSystem.Service.ProjectService;
+import com.example.hrSystem.Service.*;
+import com.example.hrSystem.entity.Department;
 import com.example.hrSystem.entity.Employees;
 import com.example.hrSystem.exception.*;
 import com.example.hrSystem.mapper.EmployeesMapper;
@@ -18,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,17 +31,18 @@ public class EmployeesHandler
     private DepartmentService departmentService;
     private BranchesService branchesService;
     private PaginationMapper paginationMapper;
+    private TimeSheetDetailService timeSheetDetailService;
 
-
-    public ResponseEntity<?> save (EmployeesDto employeesDto)
+    public ResponseEntity<?> save (EmployeesDto dto)
     {
 
-        Employees employees = mapper.toEntity(employeesDto);
-        employees.setBranches(branchesService.getById(employeesDto.getBranches().getId()).get());
-        employees.setDepartment(departmentService.getById(employeesDto.getDepartment().getId()).get());
-        employees.setProject(projectService.getById(employeesDto.getProject().getId()).get());
+        Employees employees = mapper.toEntity(dto);
+        employees.setBranches(branchesService.getById(dto.getBranches().getId()).get());
+        employees.setDepartment(departmentService.getById(dto.getDepartment().getId()).get());
+        employees.setProject(projectService.getById(dto.getProject().getId()).get());
         employeesService.save(employees);
-        return ResponseEntity.ok(mapper.toDto(employees));
+        EmployeesDto employeesDto = mapper.toDto(employees);
+        return ResponseEntity.created(URI.create("/employees/" + employees.getId())).body(employeesDto);
     }
 
     public ResponseEntity<?> getAll(Integer page, Integer size)
@@ -91,6 +92,6 @@ public class EmployeesHandler
         {
             throw new ResourceRelatedException(Employees.class.getSimpleName(), "Id", id.toString(), ErrorCodes.RELATED_RESOURCE.getCode());
         }
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new Response("deleted"));
+        return ResponseEntity.noContent().build();
     }
 }

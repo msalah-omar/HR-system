@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Tag(name = "Time Sheet detail")
-@RequestMapping("/time sheet detail")
+@RequestMapping("/time-sheet-detail")
 @RestController
 @Component
 @AllArgsConstructor

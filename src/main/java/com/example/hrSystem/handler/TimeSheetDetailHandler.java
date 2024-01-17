@@ -1,24 +1,24 @@
 package com.example.hrSystem.handler;
 
-import com.example.hrSystem.Dto.DepartmentDto;
+
 import com.example.hrSystem.Dto.TimeSheetDetailDto;
 
 import com.example.hrSystem.Dto.commen.PaginatedResultDto;
+import com.example.hrSystem.Service.EmployeesService;
 import com.example.hrSystem.Service.TimeSheetDetailService;
 
-import com.example.hrSystem.entity.Department;
 import com.example.hrSystem.entity.TimeSheetDetail;
 import com.example.hrSystem.exception.ErrorCodes;
 import com.example.hrSystem.exception.ResourceNotFoundException;
 import com.example.hrSystem.exception.ResourceRelatedException;
-import com.example.hrSystem.exception.Response;
+
 import com.example.hrSystem.mapper.PaginationMapper;
 import com.example.hrSystem.mapper.TimeSheetDetailMapper;
 
 
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -35,13 +35,16 @@ public class TimeSheetDetailHandler
     private TimeSheetDetailService timeSheetDetailService;
     private TimeSheetDetailMapper mapper;
     private PaginationMapper paginationMapper;
+    private EmployeesService employeesService;
 
     public ResponseEntity<?> save(TimeSheetDetailDto dto) {
         TimeSheetDetail timeSheetDetail = mapper.toEntity(dto);
+        timeSheetDetail.setEmployees(employeesService.getById(dto.getEmployees().getId()).get());
         Duration duration = Duration.between(dto.getStartDate(),dto.getEndDate());
         long l = duration.toHours();
         System.out.println(l);
-        l = l - 8;
+        l = l - (8);
+        System.out.println("after: "+l);
         timeSheetDetail.setOvertimeHours((float) l);
         timeSheetDetailService.save(timeSheetDetail);
         TimeSheetDetailDto timeSheetDetailDto = mapper.toDto(timeSheetDetail);

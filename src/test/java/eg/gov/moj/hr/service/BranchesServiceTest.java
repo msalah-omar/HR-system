@@ -5,7 +5,7 @@ import com.example.hrSystem.Service.BranchesService;
 import com.example.hrSystem.entity.Branches;
 
 
-
+import com.example.hrSystem.entity.Employees;
 import com.example.hrSystem.repository.BranchesRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -105,4 +105,6 @@ public class BranchesServiceTest
         branchesService.delete(branches);
         verify(branchesRepository).delete(branches);
     }
+
+
 }

@@ -14,18 +14,11 @@ public class TimeSheetDetailDto extends GenericDto
 
 
     private LocalDateTime startDate;
-
-
     private LocalDateTime endDate;
-
     private Float overtimeHours;
-
     private String taskDesc;
-
     private Boolean approvalStatus;
-
     private Boolean billable;
-
     private String comments;
     private EmployeesDto employees;
 

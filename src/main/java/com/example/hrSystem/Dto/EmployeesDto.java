@@ -1,6 +1,7 @@
 package com.example.hrSystem.Dto;
 
 
+import com.example.hrSystem.Dto.commen.GenericDto;
 import com.example.hrSystem.validation.InsertValidation;
 import com.example.hrSystem.validation.UpdateValidation;
 import lombok.Data;
@@ -10,7 +11,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Data
-public class EmployeesDto
+public class EmployeesDto extends GenericDto
 {
     @NotBlank(message = "Name is mandatory", groups = {InsertValidation.class, UpdateValidation.class})
     @Size(max = 205, message = "Name's max length allowed is 205 characters", groups = {InsertValidation.class, UpdateValidation.class})
